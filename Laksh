@@ -1,0 +1,39 @@
+CREATE DATABASE l_demo; USE l_demo;
+
+CREATE TABLE department (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE s (
+    roll_no INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE,
+    aadhar_no VARCHAR(12) UNIQUE,
+    dept_id INT,
+    FOREIGN KEY (dept_id)
+        REFERENCES department (dept_id)
+);
+
+CREATE TABLE c (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50) NOT NULL,
+    dept_id INT,
+    FOREIGN KEY (dept_id)
+        REFERENCES department (dept_id)
+);
+
+CREATE TABLE e (
+    roll_no INT,
+    course_id INT,
+    semester INT CHECK (semester BETWEEN 1 AND 8),
+    grade CHAR(2),
+    PRIMARY KEY (roll_no , course_id , semester),
+    FOREIGN KEY (roll_no)
+        REFERENCES s (roll_no),
+    FOREIGN KEY (course_id)
+        REFERENCES c (course_id)
+);
+
+
+
